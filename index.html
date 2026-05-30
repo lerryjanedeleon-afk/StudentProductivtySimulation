@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Productivity Behavior Simulation System</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.container{
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align: center;
+    color: #333;
+}
+
+p.description{
+    text-align: center;
+    color: #666;
+}
+
+label{
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button{
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover{
+    background-color: #45a049;
+}
+
+.result{
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.result h2,
+.result h3{
+    color: #333;
+}
+
+.footer{
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Productivity Behavior Simulation System</h1>
+
+    <p class="description">
+        Simulates how student habits affect productivity and academic performance.
+    </p>
+
+    <label>First Name:</label>
+    <input type="text" id="firstName">
+
+    <label>Last Name:</label>
+    <input type="text" id="lastName">
+
+    <label>Social Media Hours:</label>
+    <input type="number" id="social" min="0">
+
+    <label>Study Hours:</label>
+    <input type="number" id="study" min="0">
+
+    <label>Sleep Hours:</label>
+    <input type="number" id="sleep" min="0">
+
+    <label>Gaming Hours:</label>
+    <input type="number" id="gaming" min="0">
+
+    <label>Time Period:</label>
+    <select id="period">
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+    </select>
+
+    <button onclick="simulate()">Run Simulation</button>
+
+    <div class="result" id="result">
+        <h2>Simulation Result</h2>
+        <p>Enter your information and click Run Simulation.</p>
+    </div>
+
+    <div class="footer">
+        Social Science Modeling and Simulation - Behavior Modeling
+    </div>
+
+</div>
+
+<script>
+
+function simulate(){
+
+    let firstName = document.getElementById("firstName").value.trim();
+    let lastName = document.getElementById("lastName").value.trim();
+
+    let social = parseFloat(document.getElementById("social").value);
+    let study = parseFloat(document.getElementById("study").value);
+    let sleep = parseFloat(document.getElementById("sleep").value);
+    let gaming = parseFloat(document.getElementById("gaming").value);
+
+    let period = document.getElementById("period").value;
+
+    if(
+        firstName === "" ||
+        lastName === "" ||
+        isNaN(social) ||
+        isNaN(study) ||
+        isNaN(sleep) ||
+        isNaN(gaming)
+    ){
+        alert("Please complete all fields.");
+        return;
+    }
+
+    let fullName = firstName + " " + lastName;
+
+    // Convert weekly values into daily averages
+    if(period === "weekly"){
+        social = social / 7;
+        study = study / 7;
+        sleep = sleep / 7;
+        gaming = gaming / 7;
+    }
+
+    let score = 100;
+
+    // Social Media Effect
+    if(social > 5){
+        score -= 30;
+    }
+    else if(social > 3){
+        score -= 15;
+    }
+
+    // Study Effect
+    if(study >= 4){
+        score += 20;
+    }
+    else if(study >= 2){
+        score += 10;
+    }
+    else{
+        score -= 20;
+    }
+
+    // Sleep Effect
+    if(sleep >= 7){
+        score += 10;
+    }
+    else{
+        score -= 15;
+    }
+
+    // Gaming Effect
+    if(gaming > 4){
+        score -= 20;
+    }
+    else if(gaming > 2){
+        score -= 10;
+    }
+
+    let productivity = "";
+    let performance = "";
+    let advice = "";
+
+    if(score >= 100){
+        productivity = "Very High";
+        performance = "Excellent";
+    }
+    else if(score >= 80){
+        productivity = "High";
+        performance = "Very Good";
+    }
+    else if(score >= 60){
+        productivity = "Moderate";
+        performance = "Good";
+    }
+    else if(score >= 40){
+        productivity = "Low";
+        performance = "Fair";
+    }
+    else{
+        productivity = "Very Low";
+        performance = "Poor";
+    }
+
+    // Advice Section
+
+    if(social > 5){
+        advice += "• Reduce social media usage.<br>";
+    }
+    else{
+        advice += "• Good social media control.<br>";
+    }
+
+    if(study < 2){
+        advice += "• Increase study hours.<br>";
+    }
+    else{
+        advice += "• Keep maintaining your study habits.<br>";
+    }
+
+    if(sleep < 7){
+        advice += "• Get more sleep for better focus.<br>";
+    }
+    else{
+        advice += "• Healthy sleeping habits.<br>";
+    }
+
+    if(gaming > 4){
+        advice += "• Reduce gaming time.<br>";
+    }
+    else{
+        advice += "• Gaming habits are manageable.<br>";
+    }
+
+    advice += "<br><strong>General Suggestions:</strong><br>";
+    advice += "• Create a daily schedule.<br>";
+    advice += "• Use the Pomodoro Technique.<br>";
+    advice += "• Set realistic goals.<br>";
+    advice += "• Avoid distractions while studying.<br>";
+
+    document.getElementById("result").innerHTML = `
+        <h2>Simulation Result</h2>
+
+        <p><strong>Student Name:</strong> ${fullName}</p>
+
+        <p><strong>Time Period:</strong> ${period.charAt(0).toUpperCase() + period.slice(1)}</p>
+
+        <p><strong>Productivity Level:</strong> ${productivity}</p>
+
+        <p><strong>Predicted Academic Performance:</strong> ${performance}</p>
+
+        <p><strong>Productivity Score:</strong> ${score}</p>
+
+        <h3>Time Management Advice</h3>
+
+        <p>${advice}</p>
+    `;
+}
+
+</script>
+
+</body>
+</html>
