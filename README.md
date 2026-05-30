@@ -34,16 +34,16 @@ academic performance.
 SYSTEM FEATURES
 ===============================================
 
-✔ First Name and Last Name Input
-✔ Daily and Weekly Activity Analysis
-✔ Social Media Usage Analysis
-✔ Study Hours Analysis
-✔ Sleep Hours Analysis
-✔ Gaming Hours Analysis
-✔ Productivity Score Calculation
-✔ Academic Performance Prediction
-✔ Personalized Time Management Advice
-✔ Interactive Website Interface
+First Name and Last Name Input
+Daily and Weekly Activity Analysis
+Social Media Usage Analysis
+Study Hours Analysis
+Sleep Hours Analysis
+Gaming Hours Analysis
+Productivity Score Calculation
+Academic Performance Prediction
+Personalized Time Management Advice
+Interactive Website Interface
 
 ===============================================
 TECHNOLOGIES USED
